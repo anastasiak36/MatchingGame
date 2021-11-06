@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href= "style.css" rel ="stylesheet" type= "text/css">
+    <!-- <script type= "text/javascript" src="game.js"></script> -->
+    <title>Matching Game</title>
+</head>
+<body>
+    <h1> Number Matching Game</h1>
+    <h6></h6>
+    <label>Number of pairs: </label> <input type = "number" id = "max" max = 20 value = 20>
+    <button id = "CreateButton">CREATE</button>
+    <hr>
+    <div>
+    </div>
+    <button id = "CheckButton">Check</button>
+    <script>
+        let listOfNumbers = [];
+
+        let buttonCreate = document.getElementById("CreateButton");
+        buttonCreate.addEventListener("click", createNumbers);
+
+        let buttonCheck = document.getElementById("CheckButton");
+        buttonCheck.addEventListener("click", checkIfMatch);
+
+        let table = document.querySelector("div");
+
+        function createNumbers() {
+            alert("Welcome to the matching game! When the cards pop up on the screen click two to try and find the matching pair, and then click check to see if they match. Keep going until you got all of them!");
+            let number = document.querySelector("input");
+            let currentNum = 1;
+            for (let i = 0; i < number.value * 2; i+=2) {
+                listOfNumbers[i] = currentNum;
+                listOfNumbers[i+1] = currentNum;
+                currentNum++;
+            }
+            let len = listOfNumbers.length;
+            for (let j = 0; j < len; j++) {
+                let i = Math.floor(Math.random() * listOfNumbers.length);
+                let numElm = document.createElement("p");
+                table.appendChild(numElm);
+                numElm.textContent = "click";
+                numElm.className = "cardBack";
+                numElm.id = listOfNumbers[i];
+                numElm.addEventListener("click", flip);
+                listOfNumbers.splice(i, 1);
+            }
+        }
+        function flip(event) {
+            let num = event.currentTarget;
+            num.classList.add("cardFront");
+            num.classList.remove("cardBack");
+            num.textContent = num.id;
+            
+        }
+        function checkIfMatch() {
+            let cardsUp = document.getElementsByClassName("cardFront");
+            let cards = [];
+            for (let i = 0; i < cardsUp.length; i++) {
+                    cards[i] = cardsUp[i];
+                }
+
+            if (cards.length == 2) {
+                if (cards[0].id == cards[1].id) {
+                    table.removeChild(cards[0]);
+                    table.removeChild(cards[1]);
+                    if (table.childElementCount == 0) {
+                        alert("Congrats, you matched all the pairs! to play again enter the amount of pairs you want and click create.");
+                    }
+                }
+                else {
+                    cards[0].textContent = "click";
+                    cards[0].className = "cardBack";
+                    cards[1].textContent = "click"
+                    cards[1].className = "cardBack";
+                }
+            }
+            else {
+                for (let i = 0; i < cards.length; i++) {
+                    cards[i].className = "cardBack";
+                    cards[i].textContent = "click";
+                }
+                alert("Please only check when you open two cards");
+            }
+            
+        }
+    </script>
+
+</body>
+</html>
