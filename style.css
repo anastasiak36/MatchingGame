@@ -24,4 +24,5 @@ p {
     text-align: center;
     width: 60px;
     height: 60px;
+    cursor: pointer;
 }
