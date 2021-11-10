@@ -5,7 +5,7 @@ body {
     background-color: blueviolet;
 }
 div {
-    display: flex;
+    display:flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: auto;
@@ -25,4 +25,11 @@ p {
     width: 60px;
     height: 60px;
     cursor: pointer;
+    color: white;
+}
+.cardBack:hover {
+    color: black;
+    background-color: darkseagreen;
+    border: 1px dotted black;
+
 }
